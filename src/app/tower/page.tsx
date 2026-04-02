@@ -5,6 +5,8 @@ import { useGameStore } from "@/store/gameStore";
 import Header from "@/components/Header";
 import TowerBoard from "@/components/tower/TowerBoard";
 import TowerControls from "@/components/tower/TowerControls";
+import TowerHistory from "@/components/tower/TowerHistory";
+import TowerStats from "@/components/tower/TowerStats";
 import { soundManager } from "@/lib/sounds";
 
 function Particles() {
@@ -72,7 +74,7 @@ export default function TowerPage() {
   if (!isMounted) return <div className="min-h-screen bg-[#0a0a0f]" />;
 
   return (
-    <div className="flex flex-col min-h-screen relative">
+    <div className="flex flex-col min-h-screen relative text-white">
       <div className="bg-pattern" />
       <div className="bg-grid" />
       <Particles />
@@ -81,6 +83,11 @@ export default function TowerPage() {
         <Header />
 
         <main className="flex-1 flex flex-col items-center justify-center px-4 py-4 sm:py-6">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <TowerHistory />
+            <TowerStats />
+          </div>
+
           <div className="game-layout w-full max-w-[1100px]">
             <div className="game-layout-controls">
               <TowerControls />
