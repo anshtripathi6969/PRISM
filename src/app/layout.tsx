@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { ConvexClientProvider } from "@/components/ConvexClientProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -21,8 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full flex flex-col pt-safe bg-[#09090d]">
-        {children}
-        <MusicWrapper />
+        <ConvexClientProvider>
+          {children}
+          <MusicWrapper />
+        </ConvexClientProvider>
       </body>
     </html>
   );

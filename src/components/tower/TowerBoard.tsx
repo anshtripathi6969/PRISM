@@ -6,12 +6,18 @@ import { useTowerStore } from "@/store/towerStore";
 import { TOWER_CONFIGS } from "@/lib/towerMultipliers";
 import { soundManager } from "@/lib/sounds";
 import { useGameStore } from "@/store/gameStore";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { useAuthStore } from "@/store/authStore";
 
 export default function TowerBoard() {
+  const { user } = useAuthStore();
+  const updateScore = useMutation(api.users.updateScore);
   const rows = useTowerStore((s) => s.rows);
   const towerStatus = useTowerStore((s) => s.towerStatus);
   const currentRow = useTowerStore((s) => s.currentRow);
   const difficulty = useTowerStore((s) => s.difficulty);
+  const bet = useTowerStore((s) => s.bet);
   const revealTile = useTowerStore((s) => s.revealTile);
   const soundEnabled = useGameStore((s) => s.soundEnabled);
   const config = TOWER_CONFIGS[difficulty];
@@ -29,7 +35,11 @@ export default function TowerBoard() {
     } else {
       if (soundEnabled) setTimeout(() => soundManager.play("gem"), 50);
     }
-    revealTile(row, col);
+    revealTile(row, col, (payout) => {
+      if (user) {
+        updateScore({ userId: user._id as any, amount: payout - bet });
+      }
+    });
   }
 
   if (towerStatus === "idle") {

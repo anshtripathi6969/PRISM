@@ -11,10 +11,16 @@ import { MIN_BET, MAX_BET } from "@/lib/constants";
 import { soundManager } from "@/lib/sounds";
 import type { TowerDifficulty } from "@/types/tower";
 
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { useAuthStore } from "@/store/authStore";
+
 const betPresets = [10, 25, 50, 100];
 const difficulties: TowerDifficulty[] = ["easy", "medium", "hard"];
 
 export default function TowerControls() {
+  const { user } = useAuthStore();
+  const updateScore = useMutation(api.users.updateScore);
   const difficulty = useTowerStore((s) => s.difficulty);
   const bet = useTowerStore((s) => s.bet);
   const coins = useGameStore((s) => s.coins);
@@ -43,7 +49,11 @@ export default function TowerControls() {
 
   function handleCashOut() {
     if (soundEnabled) soundManager.play("cashout");
-    cashOut();
+    cashOut((payout) => {
+      if (user) {
+        updateScore({ userId: user._id as any, amount: payout - bet });
+      }
+    });
   }
 
   return (

@@ -23,8 +23,8 @@ interface TowerStore {
   setDifficulty: (d: TowerDifficulty) => void;
   setBet: (n: number) => void;
   startGame: () => void;
-  revealTile: (row: number, col: number) => void;
-  cashOut: () => void;
+  revealTile: (row: number, col: number, onWin?: (payout: number) => void) => void;
+  cashOut: (onWin?: (payout: number) => void) => void;
   resetGame: () => void;
 }
 
@@ -133,7 +133,7 @@ export const useTowerStore = create<TowerStore>()((set, get) => {
       saveState(get());
     },
 
-    revealTile: (row, col) => {
+    revealTile: (row, col, onWin) => {
       const { rows, towerStatus, currentRow, difficulty, bet } = get();
       if (towerStatus !== "playing") return;
       if (row !== currentRow + 1) return;
@@ -189,6 +189,7 @@ export const useTowerStore = create<TowerStore>()((set, get) => {
           const payout = Math.round(bet * newMultiplier);
           const adjustCoins = useGameStore.getState().adjustCoins;
           adjustCoins(payout);
+          if (onWin) onWin(payout);
           const round: TowerRound = {
             id: Date.now().toString(36),
             difficulty,
@@ -226,7 +227,7 @@ export const useTowerStore = create<TowerStore>()((set, get) => {
       }
     },
 
-    cashOut: () => {
+    cashOut: (onWin) => {
       const {
         towerStatus,
         bet,
@@ -240,6 +241,7 @@ export const useTowerStore = create<TowerStore>()((set, get) => {
       const payout = Math.round(bet * currentMultiplier);
       const adjustCoins = useGameStore.getState().adjustCoins;
       adjustCoins(payout);
+      if (onWin) onWin(payout);
       const round: TowerRound = {
         id: Date.now().toString(36),
         difficulty,

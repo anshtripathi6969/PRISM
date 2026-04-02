@@ -8,7 +8,7 @@ interface DiceActions {
   setBet: (bet: number) => void;
   setTarget: (target: number) => void;
   setCondition: (condition: "over" | "under") => void;
-  roll: () => void;
+  roll: (onWin?: (payout: number) => void) => void;
   reset: () => void;
 }
 
@@ -41,7 +41,7 @@ export const useDiceStore = create<ExtendedDiceState & DiceActions>()(
       setTarget: (target) => set({ target }),
       setCondition: (condition) => set({ condition }),
 
-      roll: () => {
+      roll: (onWin) => {
         const { status, bet, target, condition, stats, history } = get();
         if (status === "playing") return;
 
@@ -64,7 +64,10 @@ export const useDiceStore = create<ExtendedDiceState & DiceActions>()(
           }
           
           const payout = isWin ? Math.floor(bet * multiplier) : 0;
-          if (isWin) adjustCoins(payout);
+          if (isWin) {
+            adjustCoins(payout);
+            if (onWin) onWin(payout);
+          }
 
           const round: DiceRound = {
             id: Math.random().toString(36).substr(2, 9),

@@ -3,9 +3,12 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useAuthStore } from "@/store/authStore";
 import { useGameStore } from "@/store/gameStore";
 import Header from "@/components/Header";
 import { soundManager } from "@/lib/sounds";
+import LoginModal from "@/components/LoginModal";
+import Leaderboard from "@/components/Leaderboard";
 
 const games = [
   {
@@ -64,8 +67,8 @@ function Particles() {
           i % 3 === 0
             ? "rgba(0, 240, 255, 0.2)"
             : i % 3 === 1
-            ? "rgba(139, 92, 246, 0.18)"
-            : "rgba(217, 70, 239, 0.15)",
+              ? "rgba(139, 92, 246, 0.18)"
+              : "rgba(217, 70, 239, 0.15)",
       }))
     );
   }, []);
@@ -133,6 +136,8 @@ function JokeCarousel() {
 export default function HomePage() {
   const darkMode = useGameStore((s) => s.darkMode);
   const soundEnabled = useGameStore((s) => s.soundEnabled);
+  const { user } = useAuthStore();
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   useEffect(() => {
     soundManager.setMuted(!soundEnabled);
@@ -151,6 +156,8 @@ export default function HomePage() {
       <div className="bg-pattern" />
       <div className="bg-grid" />
       <Particles />
+
+      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
 
       <div className="relative z-10 flex flex-col min-h-screen">
         <Header />
@@ -177,9 +184,30 @@ export default function HomePage() {
                 <span className="text-violet-400">M</span>
               </span>
             </motion.div>
-            
+
             <JokeCarousel />
-            
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
+            >
+              {!user && (
+                <button
+                  onClick={() => setIsLoginOpen(true)}
+                  className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500/20 to-violet-500/20 border border-white/10 hover:border-cyan-500/40 text-white font-black uppercase tracking-[0.2em] text-xs transition-all shadow-[0_0_30px_rgba(6,182,212,0.1)] hover:shadow-[0_0_40px_rgba(6,182,212,0.2)]"
+                >
+                  Login to Compete
+                </button>
+              )}
+              <button
+                onClick={() => document.getElementById("leaderboard")?.scrollIntoView({ behavior: "smooth" })}
+                className="px-8 py-3.5 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 text-white/60 hover:text-white font-black uppercase tracking-[0.2em] text-xs transition-all"
+              >
+                🏆 Leaderboard
+              </button>
+            </motion.div>
           </motion.div>
 
           {/* Game Cards */}
@@ -263,7 +291,7 @@ export default function HomePage() {
               <div className="w-12 h-px bg-white/10" />
             </div>
             <div className="flex items-center justify-center gap-3 mt-4">
-              {["🎲 Dice", "🃏 HiLo"].map((g) => (
+              {[""].map((g) => (
                 <span
                   key={g}
                   className="text-[10px] font-semibold text-white/15 px-3 py-1.5 rounded-full border border-white/5 bg-white/[0.02]"
@@ -273,12 +301,16 @@ export default function HomePage() {
               ))}
             </div>
           </motion.div>
+
+          <div id="leaderboard" className="w-full">
+            <Leaderboard />
+          </div>
         </main>
 
         <footer className="text-center py-6 text-[10px] text-white/20 relative z-10 max-w-2xl mx-auto">
           <p className="mb-2">Premium Gaming · The ultimate high-stakes simulation</p>
           <p className="opacity-50 italic">
-            Disclaimer: We are not responsible for any dashed hopes, broken monitors, 
+            Disclaimer: We are not responsible for any dashed hopes, broken monitors,
             or the sudden urge to take a second mortgage. Calm down and pick the next tile.
           </p>
         </footer>

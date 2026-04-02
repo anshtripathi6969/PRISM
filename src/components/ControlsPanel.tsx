@@ -12,10 +12,15 @@ import {
 } from "@/lib/constants";
 import { getNextMultiplier } from "@/lib/multipliers";
 import { soundManager } from "@/lib/sounds";
+import { useMutation } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { useAuthStore } from "@/store/authStore";
 
 const betPresets = [100, 500, 1000, 2500];
 
 export default function ControlsPanel() {
+  const { user } = useAuthStore();
+  const updateScore = useMutation(api.users.updateScore);
   const mines = useGameStore((s) => s.mines);
   const bet = useGameStore((s) => s.bet);
   const coins = useGameStore((s) => s.coins);
@@ -43,6 +48,9 @@ export default function ControlsPanel() {
 
   function handleCashOut() {
     if (soundEnabled) soundManager.play("cashout");
+    if (user) {
+      updateScore({ userId: user._id as any, amount: potentialPayout - bet });
+    }
     cashOut();
   }
 

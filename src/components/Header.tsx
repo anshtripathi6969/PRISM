@@ -1,16 +1,23 @@
 "use client";
 
+import { useAuthStore } from "@/store/authStore";
+import LoginModal from "./LoginModal";
+import { LogOut, User as UserIcon } from "lucide-react";
+import { useState } from "react";
 import CoinBalance from "./CoinBalance";
 import SoundToggle from "./SoundToggle";
 import { motion } from "framer-motion";
 import ResetPopup from "./ResetPopup";
-
 import Link from "next/link";
 
 export default function Header() {
+  const { user, logout } = useAuthStore();
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+
   return (
     <>
       <ResetPopup />
+      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
       <header className="header-bar flex items-center justify-between px-4 sm:px-8 py-3.5">
         <Link href="/">
           <motion.div
@@ -26,22 +33,46 @@ export default function Header() {
               <span className="text-cyan-400">S</span>
               <span className="text-violet-400">M</span>
             </div>
-            <div className="hidden sm:flex items-center gap-1.5">
-              <div className="w-px h-5 bg-white/10" />
-              <span className="text-[10px] uppercase tracking-[0.2em] text-white/25 font-semibold">
-                
-              </span>
-            </div>
           </motion.div>
         </Link>
+
         <motion.div
-          className="flex items-center gap-2 sm:gap-3"
+          className="flex items-center gap-2 sm:gap-4"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, type: "spring" }}
         >
           <CoinBalance />
-          <div className="flex items-center gap-1">
+          
+          <div className="h-8 w-px bg-white/10 mx-1 hidden sm:block" />
+
+          {user ? (
+            <div className="flex items-center gap-3">
+              <div className="hidden sm:flex flex-col items-end">
+                <span className="text-[10px] uppercase tracking-widest font-black text-white/40 leading-none mb-1">Authenticated</span>
+                <span className="text-xs font-bold text-white tracking-wide">{user.username}</span>
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400">
+                <UserIcon size={20} />
+              </div>
+              <button 
+                onClick={() => logout()}
+                className="p-2.5 hover:bg-red-500/10 rounded-xl text-white/30 hover:text-red-400 transition-all border border-transparent hover:border-red-500/20"
+                title="Logout"
+              >
+                <LogOut size={18} />
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsLoginOpen(true)}
+              className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs font-black uppercase tracking-widest hover:bg-white/10 hover:border-white/20 transition-all shadow-[0_0_20px_rgba(255,255,255,0.05)]"
+            >
+              Login
+            </button>
+          )}
+
+          <div className="flex items-center gap-1 ml-1 sm:ml-2">
             <SoundToggle />
           </div>
         </motion.div>

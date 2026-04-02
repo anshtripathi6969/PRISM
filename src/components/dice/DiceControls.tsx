@@ -5,8 +5,13 @@ import { useGameStore } from "@/store/gameStore";
 import { motion } from "framer-motion";
 import { MIN_BET, MAX_BET } from "@/lib/constants";
 import { Coins, ChevronUp, ChevronDown, RotateCcw } from "lucide-react";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { useAuthStore } from "@/store/authStore";
 
 export default function DiceControls() {
+  const { user } = useAuthStore();
+  const updateScore = useMutation(api.users.updateScore);
   const { bet, setBet, roll, status, target, setTarget, condition, setCondition } = useDiceStore();
   const coins = useGameStore((s) => s.coins);
 
@@ -76,7 +81,11 @@ export default function DiceControls() {
         {/* Action Button */}
         <div className="pt-2">
           <motion.button
-            onClick={roll}
+            onClick={() => roll((payout) => {
+              if (user) {
+                updateScore({ userId: user._id as any, amount: payout - bet });
+              }
+            })}
             disabled={isPlaying || bet <= 0 || bet > coins}
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
