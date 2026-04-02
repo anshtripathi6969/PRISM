@@ -34,6 +34,19 @@ const games = [
     tag: "8 Floors",
     tagColor: "text-amber-400 bg-amber-500/10",
   },
+  {
+    id: "dice",
+    title: "Dice",
+    emoji: "🎲",
+    description: "Roll the dice and hit your range. Customizable risk for massive wins.",
+    href: "/dice",
+    gradient: "from-blue-500/20 via-indigo-500/10 to-violet-500/20",
+    borderGlow: "hover:border-blue-400/40",
+    shadowGlow: "hover:shadow-[0_0_40px_rgba(34,211,238,0.15)]",
+    iconBg: "bg-blue-500/10",
+    tag: "Roll Over/Under",
+    tagColor: "text-blue-400 bg-blue-500/10",
+  },
 ];
 
 function Particles() {
@@ -250,7 +263,7 @@ export default function HomePage() {
               <div className="w-12 h-px bg-white/10" />
             </div>
             <div className="flex items-center justify-center gap-3 mt-4">
-              {["🎲 Dice", "📈 Crash", "🃏 HiLo"].map((g) => (
+              {["🎲 Dice", "🃏 HiLo"].map((g) => (
                 <span
                   key={g}
                   className="text-[10px] font-semibold text-white/15 px-3 py-1.5 rounded-full border border-white/5 bg-white/[0.02]"
