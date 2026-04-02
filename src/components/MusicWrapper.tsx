@@ -3,8 +3,7 @@
 import dynamic from "next/dynamic";
 
 const MusicPlayer = dynamic(() => import("./MusicPlayer"), { 
-  ssr: false,
-  loading: () => null 
+  ssr: false 
 });
 
 export default function MusicWrapper() {

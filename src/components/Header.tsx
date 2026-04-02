@@ -30,7 +30,6 @@ export default function Header() {
             </span>
           </div>
         </motion.div>
-
         <motion.div
           className="flex items-center gap-2 sm:gap-3"
           initial={{ opacity: 0, x: 20 }}
