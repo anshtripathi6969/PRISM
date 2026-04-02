@@ -1,4 +1,4 @@
-# 💎 PRISM | Cyberpunk Casino Platform
+# 💎 PRISM | Casino Platform
 
 ![PRISM Logo](https://img.shields.io/badge/PRISM-Casino-cyan?style=for-the-badge&logo=probot&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js&logoColor=white)
