@@ -12,7 +12,7 @@ import { soundManager } from "@/lib/sounds";
 import type { TowerDifficulty } from "@/types/tower";
 
 import { useMutation } from "convex/react";
-import { api } from "../../../convex/_generated/api";
+import { api } from "@convex/_generated/api";
 import { useAuthStore } from "@/store/authStore";
 
 const betPresets = [10, 25, 50, 100];

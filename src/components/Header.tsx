@@ -26,12 +26,19 @@ export default function Header() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, type: "spring" }}
           >
-            <div className="logo-text text-2xl sm:text-3xl font-black tracking-tight transition-transform duration-300 group-hover:scale-105">
-              <span className="text-cyan-400">P</span>
-              <span className="text-violet-400">R</span>
-              <span className="text-fuchsia-400">I</span>
-              <span className="text-cyan-400">S</span>
-              <span className="text-violet-400">M</span>
+            <div className="flex items-center gap-2.5 group transition-transform duration-300 hover:scale-105">
+              <img 
+                src="/logo.png?v=1" 
+                alt="Logo" 
+                className="w-8 h-8 sm:w-9 sm:h-9 object-contain filter drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]"
+              />
+              <div className="logo-text text-xl sm:text-2xl font-black tracking-tight pt-0.5">
+                <span className="text-cyan-400">P</span>
+                <span className="text-violet-400">R</span>
+                <span className="text-fuchsia-400">I</span>
+                <span className="text-cyan-400">S</span>
+                <span className="text-violet-400">M</span>
+              </div>
             </div>
           </motion.div>
         </Link>

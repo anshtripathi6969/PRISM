@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useAuthStore } from "@/store/authStore";
 import { useGameStore } from "@/store/gameStore";
+import SplashLoader from "@/components/SplashLoader";
 import Header from "@/components/Header";
 import { soundManager } from "@/lib/sounds";
 import LoginModal from "@/components/LoginModal";
@@ -138,6 +139,12 @@ export default function HomePage() {
   const soundEnabled = useGameStore((s) => s.soundEnabled);
   const { user } = useAuthStore();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowSplash(false), 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     soundManager.setMuted(!soundEnabled);
@@ -152,15 +159,25 @@ export default function HomePage() {
   }, [darkMode]);
 
   return (
-    <div className="flex flex-col min-h-screen relative">
-      <div className="bg-pattern" />
-      <div className="bg-grid" />
-      <Particles />
+    <AnimatePresence mode="wait">
+      {showSplash ? (
+        <SplashLoader key="splash" />
+      ) : (
+        <motion.div 
+          key="content"
+          className="flex flex-col min-h-screen relative"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="bg-pattern" />
+          <div className="bg-grid" />
+          <Particles />
 
-      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+          <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
 
-      <div className="relative z-10 flex flex-col min-h-screen">
-        <Header />
+          <div className="relative z-10 flex flex-col min-h-screen">
+            <Header />
 
         <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 sm:py-16">
           {/* Hero */}
@@ -314,7 +331,9 @@ export default function HomePage() {
             or the sudden urge to take a second mortgage. Calm down and pick the next tile.
           </p>
         </footer>
-      </div>
-    </div>
+          </div>
+      </motion.div>
+    )}
+  </AnimatePresence>
   );
 }

@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { MIN_BET, MAX_BET } from "@/lib/constants";
 import { Coins, ChevronUp, ChevronDown, RotateCcw } from "lucide-react";
 import { useMutation } from "convex/react";
-import { api } from "../../../convex/_generated/api";
+import { api } from "@convex/_generated/api";
 import { useAuthStore } from "@/store/authStore";
 
 export default function DiceControls() {

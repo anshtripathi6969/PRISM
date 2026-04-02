@@ -7,7 +7,7 @@ import { TOWER_CONFIGS } from "@/lib/towerMultipliers";
 import { soundManager } from "@/lib/sounds";
 import { useGameStore } from "@/store/gameStore";
 import { useMutation } from "convex/react";
-import { api } from "../../../convex/_generated/api";
+import { api } from "@convex/_generated/api";
 import { useAuthStore } from "@/store/authStore";
 
 export default function TowerBoard() {

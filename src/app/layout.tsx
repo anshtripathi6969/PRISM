@@ -11,6 +11,11 @@ export const metadata: Metadata = {
     description: "The ultimate high-stakes simulation. A premium web game experience.",
     type: "website",
   },
+  icons: {
+    icon: "/logo.png?v=1",
+    shortcut: "/logo.png?v=1",
+    apple: "/logo.png?v=1",
+  },
 };
 
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
