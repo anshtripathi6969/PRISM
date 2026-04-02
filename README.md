@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💎 PRISM | Cyberpunk Casino Platform
 
-## Getting Started
+![PRISM Logo](https://img.shields.io/badge/PRISM-Casino-cyan?style=for-the-badge&logo=probot&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-ff0055?style=for-the-badge&logo=framer&logoColor=white)
 
-First, run the development server:
+> **Experience the ultimate high-fidelity, cyberpunk-themed gaming ecosystem. Strategy meets aesthetic.**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+PRISM is a state-of-the-art interactive gaming platform featuring strategy games, real-time balance management, and a seamless, integrated music experience designed to keep you in the flow.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🕹️ The Games
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 💎 Mines
+The ultimate test of nerves and strategy.
+- **5×5 High-Voltage Grid**: Uncover deep-sea gems while avoiding volatile mines.
+- **Scaling Multipliers**: Every successful pick increases your potential payout exponentially.
+- **Difficulty Presets**: Switch between Easy, Medium, Hard, and Extreme modes instantly.
+- **Smart Odds**: Real-time multiplier calculation for maximal transparency.
 
-## Learn More
+### 🗼 Tower
+Ascend to the summit for legendary rewards.
+- **Multi-Level Ascent**: Each floor increases the difficulty but doubles the stakes.
+- **Risk Control**: Choose how many mines are hidden on each floor.
+- **Cinematic Transitions**: High-performance animations for every floor reached.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎵 Integrated Multi-Media
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+PRISM features a built-in **YouTube Music Player** directly in the dashboard.
+- **Remote Streaming**: Search and stream any track from the world's largest music library.
+- **Background Playback**: Keep the beats dropping while you're clearing the grid.
+- **Zero-Latency Search**: Powered by server-side YouTube Data API integration.
+- **Cyber-Audio Control**: Floating translucent UI with minimalist playback controls.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Tech Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) with Custom Glassmorphism
+- **Animations**: [Framer Motion](https://www.framer.com/motion/) for ultra-smooth UI interactions
+- **State Management**: [Zustand](https://github.com/pmndrs/zustand) with Persistent Middleware
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **API**: YouTube Data API v3 for high-speed music retrieval
+
+---
+
+## 🛠️ Getting Started
+
+### Prerequisites
+- Node.js 18.x or higher
+- A YouTube Data API Key
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/anshtripathi6969/PRISM.git
+   cd PRISM
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment:**
+   Create a `.env.local` file in the root directory:
+   ```env
+   NEXT_PUBLIC_YOUTUBE_API_KEY=your_key_here
+   ```
+
+4. **Run in Development:**
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 🌌 Core Features
+
+- **Automatic Persistence**: Your balance, history, and settings are saved automatically to `localStorage` – play across sessions seamlessly.
+- **Dynamic Theming**: Dark-mode optimized with a high-contrast cyan-fuchsia cyberpunk palette.
+- **Responsive Architecture**: Fully responsive layout designed for both high-end desktop setups and mobile play.
+- **Deterministic Randomness**: Fair-play algorithms for mine placements and tower floors.
+
+---
+
+## 📜 License
+This project is for educational and portfolio demonstration purposes. All rights reserved by the PRISM development team.
+
+---
+
+*Built with passion and neon light. PRISM – Play the Future.*
