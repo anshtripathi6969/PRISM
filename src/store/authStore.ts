@@ -4,6 +4,7 @@ import { persist } from "zustand/middleware";
 interface User {
   _id: string;
   username: string;
+  totalWinnings?: number;
 }
 
 interface AuthStore {

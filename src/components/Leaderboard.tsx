@@ -4,6 +4,7 @@ import { useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, Medal, Crown, TrendingUp, User } from "lucide-react";
+import CyberAvatar from "./CyberAvatar";
 
 export default function Leaderboard() {
   const leaders = useQuery(api.users.getLeaderboard);
@@ -72,11 +73,9 @@ export default function Leaderboard() {
                           `#${index + 1}`}
                   </div>
 
-                  <div className="col-span-6 flex items-center gap-3 ml-6 overflow-hidden">
-                    <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-white/30 shrink-0">
-                      <User size={14} />
-                    </div>
-                    <span className={`font-bold truncate ${index === 0 ? 'text-amber-100' : 'text-white/80'}`}>
+                    <div className="col-span-6 flex items-center gap-3 ml-6 overflow-hidden">
+                      <CyberAvatar totalWinnings={user.totalWinnings} size="sm" />
+                      <span className={`font-bold truncate ${index === 0 ? 'text-amber-100' : 'text-white/80'}`}>
                       {user.username}
                     </span>
                   </div>

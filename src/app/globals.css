@@ -635,3 +635,65 @@ body {
   background: rgba(0, 240, 255, 0.2);
   color: white;
 }
+/* ─── Cyber Avatars & Auras ────────────────────────────────────────── */
+.aura-bronze {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+.aura-cyan {
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 
+    0 0 15px rgba(0, 240, 255, 0.3),
+    inset 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.aura-violet-pulse {
+  border: 2px solid var(--neon-violet);
+  animation: aura-pulse-violet 2.5s ease-in-out infinite;
+}
+
+@keyframes aura-pulse-violet {
+  0%, 100% { 
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.4), inset 0 0 10px rgba(139, 92, 246, 0.2);
+    border-color: var(--neon-violet);
+  }
+  50% { 
+    box-shadow: 0 0 35px rgba(139, 92, 246, 0.7), inset 0 0 20px rgba(139, 92, 246, 0.4);
+    border-color: #a782ff;
+  }
+}
+
+.aura-lightning {
+  border: 2px solid #fff;
+  animation: aura-glitch-lightning 0.2s linear infinite;
+  position: relative;
+}
+
+@keyframes aura-glitch-lightning {
+  0% { 
+    box-shadow: 0 0 20px #00f0ff, 0 0 40px #8b5cf6;
+    border-color: #fff;
+    transform: translate(0, 0);
+  }
+  25% { 
+    box-shadow: 0 0 35px #fff, 0 0 60px #00f0ff;
+    border-color: #00f0ff;
+    transform: translate(-1px, 1px);
+  }
+  50% { 
+    box-shadow: 0 0 20px #8b5cf6, 0 0 50px #d946ef;
+    border-color: #8b5cf6;
+    transform: translate(1px, -1px);
+  }
+  75% { 
+    box-shadow: 0 0 40px #00f0ff, 0 0 70px #fff;
+    border-color: #fff;
+    transform: translate(-1px, -1px);
+  }
+  100% { 
+    box-shadow: 0 0 20px #00f0ff, 0 0 40px #8b5cf6;
+    border-color: #fff;
+    transform: translate(0, 0);
+  }
+}

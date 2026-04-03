@@ -17,7 +17,7 @@ export const authenticate = mutation({
     const userId = await ctx.db.insert("users", {
       username: args.username,
       password: args.password,
-      totalWinnings: 0,
+      totalWinnings: 1000,
       gamesPlayed: 0,
       lastPlayed: Date.now(),
     });
@@ -37,6 +37,13 @@ export const updateScore = mutation({
       gamesPlayed: user.gamesPlayed + 1,
       lastPlayed: Date.now(),
     });
+  },
+});
+
+export const get = query({
+  args: { userId: v.id("users") },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.userId);
   },
 });
 

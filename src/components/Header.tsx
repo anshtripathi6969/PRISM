@@ -9,9 +9,12 @@ import SoundToggle from "./SoundToggle";
 import { motion } from "framer-motion";
 import ResetPopup from "./ResetPopup";
 import Link from "next/link";
+import CyberAvatar from "./CyberAvatar";
+import { useGameStore } from "@/store/gameStore";
 
 export default function Header() {
   const { user, logout } = useAuthStore();
+  const coins = useGameStore((s) => s.coins);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (
@@ -54,15 +57,13 @@ export default function Header() {
           <div className="h-8 w-px bg-white/10 mx-1 hidden sm:block" />
 
           {user ? (
-            <div className="flex items-center gap-3">
-              <div className="hidden sm:flex flex-col items-end">
-                <span className="text-[10px] uppercase tracking-widest font-black text-white/40 leading-none mb-1">Authenticated</span>
-                <span className="text-xs font-bold text-white tracking-wide">{user.username}</span>
-              </div>
-              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400">
-                <UserIcon size={20} />
-              </div>
-              <button 
+              <div className="flex items-center gap-3">
+                <div className="hidden sm:flex flex-col items-end">
+                  <span className="text-[10px] uppercase tracking-widest font-black text-white/40 leading-none mb-1">Authenticated</span>
+                  <span className="text-xs font-bold text-white tracking-wide">{user.username}</span>
+                </div>
+                <CyberAvatar totalWinnings={coins} size="md" />
+                <button 
                 onClick={() => logout()}
                 className="p-2.5 hover:bg-red-500/10 rounded-xl text-white/30 hover:text-red-400 transition-all border border-transparent hover:border-red-500/20"
                 title="Logout"
